@@ -1,0 +1,25 @@
+{
+    "name": "netojoaobatista/wsdl",
+    "description": "Web Service Description Language parser and client generation",
+    "homepage": "https://github.com/netojoaobatista/wsdl2php",
+    "license": "MIT",
+    "require": {
+        "php": ">=5.5",
+        "nikic/php-parser": "dev-master",
+        "symfony/console": "@stable",
+        "phing/phing": "2.*"
+    },
+	"require-dev": {
+        "phpunit/phpunit": "@stable",
+		"sebastian/phpcpd": "@stable",
+		"phpmd/phpmd": "@stable",
+		"pdepend/pdepend": "@stable",
+        "sebastian/pdepend-process": "dev-master",
+        "object-calisthenics/phpcs-calisthenics-rules": "dev-master"
+	},
+    "autoload": {
+        "psr-4": {
+            "Computaria\\Wsdl\\": "src/Computaria/Wsdl"
+        }
+    }
+}

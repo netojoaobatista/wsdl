@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="wsdl" default="design">
+    <target name="design" depends="prepare,phpcpd,phpmd,pdepend,phpcs" />
+
+    <target name="clean">
+        <delete dir="build"/>
+        <delete dir="vendor"/>
+        <delete file="composer.lock"/>
+    </target>
+
+    <target name="prepare" depends="composer">
+        <mkdir dir="build"/>
+        <mkdir dir="build/pdepend"/>
+        <mkdir dir="build/pdepend/dashboard"/>
+        <mkdir dir="build/phpcs"/>
+        <mkdir dir="build/phpmd"/>
+        <mkdir dir="build/phpcpd"/>
+    </target>
+
+    <target name="composer">
+        <exec executable="composer">
+            <arg value="install" />
+        </exec>
+    </target>
+
+    <target name="pdepend" depends="prepare">
+        <exec executable="vendor/bin/pdepend">
+            <arg value="--summary-xml=build/pdepend/summary.xml" />
+            <arg value="--jdepend-chart=build/pdepend/dependencies.svg" />
+            <arg value="--overview-pyramid=build/pdepend/overview-pyramid.svg" />
+            <arg value="--ignore=vendor" />
+            <arg path="src" />
+        </exec>
+        <exec executable="vendor/bin/pdepend-process">
+            <arg value="--quiet" />
+            <arg value="--dashboard-html" />
+            <arg path="build/pdepend/dashboard" />
+            <arg path="build/pdepend/summary.xml" />
+        </exec>
+    </target>
+
+    <target name="phpcs" depends="prepare">
+        <exec executable="vendor/bin/phpcs">
+            <arg value="--report=full" />
+            <arg value="--report-file=build/phpcs/report" />
+            <arg path="src" />
+        </exec>
+    </target>
+
+    <target name="phpmd" depends="prepare">
+        <exec executable="vendor/bin/phpmd">
+            <arg path="src" />
+            <arg value="html" />
+            <arg value="cleancode,codesize,controversial,design,unusedcode" />
+            <arg value="--reportfile" />
+            <arg value="build/phpmd/index.html" />
+            <arg value="--exclude" />
+            <arg value="vendor,build" />
+        </exec>
+    </target>
+
+    <target name="phpcpd" depends="prepare">
+        <exec executable="vendor/bin/phpcpd">
+            <arg value="--log-pmd=build/phpcpd/log.xml" />
+            <arg value="--exclude" />
+            <arg value="vendor" />
+            <arg value="--exclude" />
+            <arg value="build" />
+            <arg path="src" />
+        </exec>
+    </target>
+</project>
