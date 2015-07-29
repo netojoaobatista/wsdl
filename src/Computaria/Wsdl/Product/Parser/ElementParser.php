@@ -28,8 +28,8 @@ class ElementParser implements Parser
                         $xsd,
                         $name))->item(0);
 
-            var_dump($element->getAttribute('name'));
-            var_dump($element->getAttribute('type'));
+            // var_dump($element->getAttribute('name'));
+            // var_dump($element->getAttribute('type'));
         }
     }
 }
