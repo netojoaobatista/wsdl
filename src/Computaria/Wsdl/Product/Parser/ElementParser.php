@@ -28,8 +28,13 @@ class ElementParser implements Parser
                         $xsd,
                         $name))->item(0);
 
-            // var_dump($element->getAttribute('name'));
-            // var_dump($element->getAttribute('type'));
+            $type = new \Computaria\Wsdl\Product\Element\Type;
+
+            return $this->wsdl->getFactory()
+                              ->createElementFactory()
+                              ->createElement($element->getAttribute('name'),
+                                              $type,
+                                              $this->wsdl);
         }
     }
 }
