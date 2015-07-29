@@ -27,11 +27,16 @@ foreach ($p->getServices() as $service) {
                                    $binding->getStyle());
 
         foreach ($portType->getOperations() as $operation) {
-            printf("\t\t\t%s %s(%s)\n", $operation->getOutput()->getName(),
-                                        lcfirst($operation->getName()),
-                                        $operation->getInput()->getName());
+            $input = $operation->getInput();
+            $output = $operation->getOutput();
 
-            $operation->getInput()->getElement();
+            printf("\t\t\t%s %s(%s)\n", $output->getName(),
+                                        lcfirst($operation->getName()),
+                                        $input->getName());
+
+            printf("\t\t\t\tINPUT: %s -> (e)%s\n", $input->getName(), $input->getElement()->getName());
+            printf("\t\t\t\tOUTPUT: %s -> (e)%s\n", $output->getName(), $output->getElement()->getName());
+            echo PHP_EOL;
         }
 
         echo PHP_EOL;
