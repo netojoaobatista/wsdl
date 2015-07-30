@@ -14,8 +14,7 @@
 		"sebastian/phpcpd": "@stable",
 		"phpmd/phpmd": "@stable",
 		"pdepend/pdepend": "@stable",
-        "sebastian/pdepend-process": "dev-master",
-        "object-calisthenics/phpcs-calisthenics-rules": "dev-master"
+        "sebastian/pdepend-process": "dev-master"
 	},
     "autoload": {
         "psr-4": {
