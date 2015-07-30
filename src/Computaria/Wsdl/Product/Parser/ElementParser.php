@@ -22,19 +22,24 @@ class ElementParser implements Parser
             $xpath = $this->wsdl->getXPath($prefix);
 
             $element = $xpath->query(
-                sprintf('.//%s:types/%s:schema/%s:element[@name="%s"]',
-                        $wsdl,
-                        $xsd,
-                        $xsd,
-                        $name))->item(0);
+                sprintf(
+                    './/%s:types/%s:schema/%s:element[@name="%s"]',
+                    $wsdl,
+                    $xsd,
+                    $xsd,
+                    $name
+                )
+            )->item(0);
 
             $type = new \Computaria\Wsdl\Product\Element\Type;
 
             return $this->wsdl->getFactory()
                               ->createElementFactory()
-                              ->createElement($element->getAttribute('name'),
-                                              $type,
-                                              $this->wsdl);
+                              ->createElement(
+                                  $element->getAttribute('name'),
+                                  $type,
+                                  $this->wsdl
+                              );
         }
     }
 }

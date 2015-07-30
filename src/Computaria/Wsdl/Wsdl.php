@@ -118,8 +118,10 @@ class Wsdl
 
         // registering document namespace
         $this->ns[$dom->documentElement->prefix] = $currentDocument;
-        $xpath->registerNamespace($dom->documentElement->prefix,
-                                  $dom->documentElement->namespaceURI);
+        $xpath->registerNamespace(
+            $dom->documentElement->prefix,
+            $dom->documentElement->namespaceURI
+        );
 
         // registering defined namespaces
         foreach ($xpath->query('namespace::*', $dom->documentElement) as $ns) {
@@ -139,8 +141,10 @@ class Wsdl
 
         // loading imports
         // TODO: make optional
-        foreach ($xpath->query(sprintf('.//%s:import/@schemaLocation',
-                                       $this->prefix[Wsdl::NS_XSD])) as $schemaLocation) {
+        foreach ($xpath->query(sprintf(
+            './/%s:import/@schemaLocation',
+            $this->prefix[Wsdl::NS_XSD]
+        )) as $schemaLocation) {
             $import = sprintf("%s/%s", $path, $schemaLocation->nodeValue);
 
             if (!isset($this->imports[$schemaLocation->nodeValue])) {

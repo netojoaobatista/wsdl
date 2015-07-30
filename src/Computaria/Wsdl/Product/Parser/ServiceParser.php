@@ -20,8 +20,10 @@ class ServiceParser implements Parser
         foreach ($xpath->query(sprintf('.//%s:service', $wsdl)) as $s) {
             yield $this->wsdl->getFactory()
                              ->createServiceFactory()
-                             ->createService($s->getAttribute('name'),
-                                             $this->wsdl);
+                             ->createService(
+                                 $s->getAttribute('name'),
+                                 $this->wsdl
+                             );
         }
     }
 }

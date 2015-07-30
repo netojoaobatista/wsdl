@@ -3,19 +3,19 @@ namespace Computaria\Wsdl;
 
 abstract class AbstractWsdlFactory
 {
-    public abstract function createBindingFactory();
+    abstract public function createBindingFactory();
 
-    public abstract function createElementFactory();
+    abstract public function createElementFactory();
 
-    public abstract function createOperationFactory();
+    abstract public function createOperationFactory();
 
-    public abstract function createPartFactory();
+    abstract public function createPartFactory();
 
-    public abstract function createPortFactory();
+    abstract public function createPortFactory();
 
-    public abstract function createPortTypeFactory();
+    abstract public function createPortTypeFactory();
 
-    public abstract function createServiceFactory();
+    abstract public function createServiceFactory();
 
-    public abstract function createTypeFactory();
+    abstract public function createTypeFactory();
 }

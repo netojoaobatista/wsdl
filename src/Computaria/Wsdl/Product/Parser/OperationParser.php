@@ -17,26 +17,33 @@ class OperationParser implements Parser
         $wsdl = $this->wsdl->getPrefix(Wsdl::NS_WSDL);
         $xpath = $this->wsdl->getXPath($wsdl);
 
-        foreach ($xpath->query(sprintf('.//%s:portType[@name="%s"]/%s:operation',
-                                       $wsdl, $name, $wsdl)) as $op) {
-
+        foreach ($xpath->query(sprintf(
+            './/%s:portType[@name="%s"]/%s:operation',
+            $wsdl,
+            $name,
+            $wsdl
+        )) as $op) {
             $operation = $this->wsdl->getFactory()
                                     ->createOperationFactory()
-                                    ->createOperation($op->getAttribute('name'),
-                                                      $name,
-                                                      $this->wsdl);
+                                    ->createOperation(
+                                        $op->getAttribute('name'),
+                                        $name,
+                                        $this->wsdl
+                                    );
 
             $input = $xpath->query(sprintf('.//%s:input', $wsdl), $op)->item(0);
             $output = $xpath->query(sprintf('.//%s:output', $wsdl), $op)->item(0);
 
             if (!is_null($input)) {
                 $operation->setInput(
-                    $this->getMessagePart($input->getAttribute('message')));
+                    $this->getMessagePart($input->getAttribute('message'))
+                );
             }
 
             if (!is_null($output)) {
                 $operation->setOutput(
-                    $this->getMessagePart($output->getAttribute('message')));
+                    $this->getMessagePart($output->getAttribute('message'))
+                );
             }
 
             yield $operation;
@@ -50,17 +57,21 @@ class OperationParser implements Parser
             $wsdl = $this->wsdl->getPrefix(Wsdl::NS_WSDL);
             $xpath = $this->wsdl->getXPath($wsdl);
 
-            $part = $xpath->query(sprintf('.//%s:message[@name="%s"]/%s:part',
-                                          $wsdl,
-                                          $name,
-                                          $wsdl))->item(0);
+            $part = $xpath->query(sprintf(
+                './/%s:message[@name="%s"]/%s:part',
+                $wsdl,
+                $name,
+                $wsdl
+            ))->item(0);
 
             if (!is_null($part)) {
                 return $this->wsdl->getFactory()
                                   ->createPartFactory()
-                                  ->createPart($part->getAttribute('name'),
-                                               $part->getAttribute('element'),
-                                               $this->wsdl);
+                                  ->createPart(
+                                      $part->getAttribute('name'),
+                                      $part->getAttribute('element'),
+                                      $this->wsdl
+                                  );
             }
         }
     }

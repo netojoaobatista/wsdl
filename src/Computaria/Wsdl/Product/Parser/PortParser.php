@@ -17,11 +17,12 @@ class PortParser implements Parser
         $wsdl = $this->wsdl->getPrefix(Wsdl::NS_WSDL);
         $xpath = $this->wsdl->getXPath($wsdl);
 
-        foreach ($xpath->query(sprintf('.//%s:service[@name="%s"]/%s:port',
-                                       $wsdl,
-                                       $service,
-                                       $wsdl)) as $p) {
-
+        foreach ($xpath->query(sprintf(
+            './/%s:service[@name="%s"]/%s:port',
+            $wsdl,
+            $service,
+            $wsdl
+        )) as $p) {
             $address = $p->getElementsByTagNameNS(Wsdl::NS_SOAP, 'address')
                          ->item(0);
 
@@ -32,10 +33,12 @@ class PortParser implements Parser
 
                 yield $this->wsdl->getFactory()
                                  ->createPortFactory()
-                                 ->createPort($name,
-                                              $location,
-                                              $binding,
-                                              $this->wsdl);
+                                 ->createPort(
+                                     $name,
+                                     $location,
+                                     $binding,
+                                     $this->wsdl
+                                 );
             }
         }
     }

@@ -23,31 +23,37 @@ class BindingParser implements Parser
             $soap = $this->wsdl->getPrefix(Wsdl::NS_SOAP);
             $xpath = $this->wsdl->getXPath($wsdl);
 
-            $b = $xpath->query(sprintf('.//%s:binding[@name="%s"]',
-                                       $wsdl,
-                                       $name))->item(0);
+            $b = $xpath->query(sprintf(
+                './/%s:binding[@name="%s"]',
+                $wsdl,
+                $name
+            ))->item(0);
 
             if (!is_null($b)) {
-               $bindingName = $b->getAttribute('name');
-               $bindingType = $b->getAttribute('type');
-               $bindingStyle = '';
-               $bindingTransport = '';
+                $bindingName = $b->getAttribute('name');
+                $bindingType = $b->getAttribute('type');
+                $bindingStyle = '';
+                $bindingTransport = '';
 
-               $soapBinding = $xpath->query(sprintf('.//%s:binding', $soap),
-                                            $b)->item(0);
+                $soapBinding = $xpath->query(
+                    sprintf('.//%s:binding', $soap),
+                    $b
+                )->item(0);
 
-               if (!is_null($soapBinding)) {
-                   $bindingStyle = $soapBinding->getAttribute('style');
-                   $bindingTransport = $soapBinding->getAttribute('transport');
-               }
+                if (!is_null($soapBinding)) {
+                    $bindingStyle = $soapBinding->getAttribute('style');
+                    $bindingTransport = $soapBinding->getAttribute('transport');
+                }
 
-               return $this->wsdl->getFactory()
+                return $this->wsdl->getFactory()
                                  ->createBindingFactory()
-                                 ->createBinding($bindingName,
-                                                $bindingType,
-                                                $bindingStyle,
-                                                $bindingTransport,
-                                                $this->wsdl);
+                                 ->createBinding(
+                                     $bindingName,
+                                     $bindingType,
+                                     $bindingStyle,
+                                     $bindingTransport,
+                                     $this->wsdl
+                                 );
             }
         }
     }

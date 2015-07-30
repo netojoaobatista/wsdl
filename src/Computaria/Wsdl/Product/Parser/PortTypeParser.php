@@ -21,15 +21,19 @@ class PortTypeParser implements Parser
             $wsdl = $this->wsdl->getPrefix(Wsdl::NS_WSDL);
             $xpath = $this->wsdl->getXPath($wsdl);
 
-            $pt = $xpath->query(sprintf('.//%s:portType[@name="%s"]',
-                                        $wsdl,
-                                        $name))->item(0);
+            $pt = $xpath->query(sprintf(
+                './/%s:portType[@name="%s"]',
+                $wsdl,
+                $name
+            ))->item(0);
 
             if (!is_null($pt)) {
                 return $this->wsdl->getFactory()
                                   ->createPortTypeFactory()
-                                  ->createPortType($pt->getAttribute('name'),
-                                                   $this->wsdl);
+                                  ->createPortType(
+                                      $pt->getAttribute('name'),
+                                      $this->wsdl
+                                  );
             }
         }
     }
